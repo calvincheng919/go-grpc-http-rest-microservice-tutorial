@@ -55,7 +55,7 @@ message UpdateResponse{
     string api = 1;
 
     // Task entity update by ID
-    ToDo toDo = 2;
+    int64 updated = 2;
 }
 
 // Request data to delete todo task
