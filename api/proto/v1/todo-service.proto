@@ -19,7 +19,7 @@ message CreateRequest {
   // api versioning
   string api = 1;
 
-  ToDo todo = 2;
+  ToDo toDo = 2;
 }
 
 //response containing data for created task
