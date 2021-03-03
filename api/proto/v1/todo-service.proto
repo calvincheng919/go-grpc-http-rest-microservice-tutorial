@@ -1,0 +1,103 @@
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/timestamp.proto";
+
+// tasks we have to do
+message ToDo {
+  //Unique integer id of the todo task
+  int64 id = 1;
+  // title of task
+  string title = 2;
+  //detail description of the todo task
+  string description = 3;
+  google.protobuf.Timestamp reminder = 4;
+}
+
+//create to create todo task
+message CreateRequest {
+  // api versioning
+  string api = 1;
+
+  ToDo todo = 2;
+}
+
+//response containing data for created task
+message CreateResponse {
+  string api = 1;
+  int64 id = 2;
+}
+
+message ReadRequest {
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Unique integer identifier of the todo task
+    int64 id = 2;
+}
+message ReadResponse {
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity read by ID
+    ToDo toDo = 2;
+}
+
+message UpdateRequest {
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity to update
+    ToDo toDo = 2;
+}
+message UpdateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity update by ID
+    ToDo toDo = 2;
+}
+
+// Request data to delete todo task
+message DeleteRequest{
+  // API versioning: it is my best practice to specify version explicitly
+  string api = 1;
+
+  // Unique integer identifier of the todo task to delete
+  int64 id = 2;
+}
+
+// Contains status of delete operation
+message DeleteResponse{
+  // API versioning: it is my best practice to specify version explicitly
+  string api = 1;
+
+  // Contains number of entities have beed deleted
+  // Equals 1 in case of succesfull delete
+  int64 deleted = 2;
+}
+
+// Request data to read all todo task
+message ReadAllRequest{
+  // API versioning: it is my best practice to specify version explicitly
+  string api = 1;
+}
+
+// Contains list of all todo tasks
+message ReadAllResponse{
+  // API versioning: it is my best practice to specify version explicitly
+  string api = 1;
+
+  // List of all todo tasks
+  repeated ToDo toDos = 2;
+}
+
+service ToDoService {
+
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Read(ReadRequest) returns (ReadRequest);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+
+}
